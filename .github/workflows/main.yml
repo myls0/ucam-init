@@ -1,0 +1,25 @@
+name: Build and Package Python App for Windows  
+on:  
+  push:  
+    branches: [ main ]  
+  pull_request:  
+    branches: [ main ]  
+  
+jobs:  
+  build:  
+    name: Build Python App for Windows  
+    runs-on: windows-latest  
+    steps:  
+      - name: Checkout Repository  
+        uses: actions/checkout@v2  
+      - name: Install Dependencies  
+        run: |  
+          pip install pyinstaller  
+          pip install --upgrade setuptools wheel  
+      - name: Build Exe File  
+        run: pyinstaller --onefile rdms_init_data.py
+      - name: Upload Exe File  
+        uses: actions/upload-artifact@v2  
+        with:  
+          name: exe-file  
+          path: dist/ucam-init.exe
