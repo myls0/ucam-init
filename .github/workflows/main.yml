@@ -16,8 +16,13 @@ jobs:
         run: |  
           pip install pyinstaller  
           pip install --upgrade setuptools wheel  
+      - name: Install Third-party Libraries  
+        run: |  
+          pip install itertools  
+          pip install openpyxl  
+          # Add other dependencies as needed  
       - name: Build Exe File  
-        run: pyinstaller --onefile rdms_init_data.py
+        run: pyinstaller --onefile rdms_init_data.py --hidden-import=itertools --hidden-import=openpyxl  
       - name: Upload Exe File  
         uses: actions/upload-artifact@v2  
         with:  
